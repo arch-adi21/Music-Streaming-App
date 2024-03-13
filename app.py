@@ -886,9 +886,3 @@ def admin_stats():
                            total_flagged_playlists=total_flagged_playlists,
                            top_performing_songs=top_performing_songs, ratings_counts=ratings_counts,
                            flagged_songs_counts=flagged_songs_counts)
-
-
-
-if __name__ == '__main__':
-    db.create_all()
-    app.run(debug=True)
