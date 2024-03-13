@@ -38,3 +38,8 @@ Validation and Schema relations are taken care of in the application.
 * **Default folders:**
     * `__pycache__` stores bytecode for faster execution (can be deleted as needed)
     * `.vscode` contains personal settings for VS Code (can be deleted to use default settings)
+
+
+## Demo Video :-
+
+[Click to view the video](https://drive.google.com/file/d/1Yakv4tKhH9TDuW-bReELpGBQV_gX1WB5/view?usp=sharing)
