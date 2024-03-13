@@ -15,12 +15,26 @@ Validation and Schema relations are taken care of in the application.
 
 ## Tech Stacks Used :
 
-Flask
-○ Flask, render_template, request, redirect, session, flash, url_for
-● Flask_sqlalchemy , sqlalchemy
-○ SQLAlchemy , integrityError , or_
-● Matplotlib , Seaborn , io , base64 , PIL
-● HTML (Hypertext Markup Language)
-● CSS (Cascading Style Sheets)
-● Bootstrap
-● SQLite database structure
+* Flask
+    * Flask, render_template, request, redirect, session, flash, url_for
+* Flask-sqlalchemy, sqlalchemy
+    * SQLAlchemy, IntegrityError, or_
+* Matplotlib, Seaborn, io, base64, PIL
+* HTML (Hypertext Markup Language)
+* CSS (Cascading Style Sheets)
+* Bootstrap
+* SQLite database structure
+
+## System Design:
+
+`app.py` is the main file containing the application initialization and all relevant routes. It also includes the code for the database schema.
+
+* **Flask framework:** Used for building the application
+* **SQLite structure:** Used for the database
+* **templates folder:** Contains all the HTML files
+* **CSS:** I haven't created a separate file for CSS. Internal or inline CSS is used throughout the project. Basic Bootstrap's `min.css` is used for button and card styling.
+* **static folder:** Contains MP3 and image files uploaded by users. The content in this folder keeps updating based on user uploads.
+* **Instances folder:** Contains the schema's ER diagram and the database itself.
+* **Default folders:**
+    * `__pycache__` stores bytecode for faster execution (can be deleted as needed)
+    * `.vscode` contains personal settings for VS Code (can be deleted to use default settings)
