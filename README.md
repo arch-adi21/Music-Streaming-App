@@ -13,3 +13,14 @@ Validation and Schema relations are taken care of in the application.
 ![image](https://github.com/arch-adi21/Music-Streaming-App/assets/155255348/59eca961-2167-4f81-aebc-7937dfaf7354)
 
 
+## Tech Stacks Used :
+
+Flask
+○ Flask, render_template, request, redirect, session, flash, url_for
+● Flask_sqlalchemy , sqlalchemy
+○ SQLAlchemy , integrityError , or_
+● Matplotlib , Seaborn , io , base64 , PIL
+● HTML (Hypertext Markup Language)
+● CSS (Cascading Style Sheets)
+● Bootstrap
+● SQLite database structure
