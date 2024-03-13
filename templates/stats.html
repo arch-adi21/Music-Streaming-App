@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+        }
+
+        .section {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #555;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h2,h1 {
+            font-size: 1.5em;
+            color: #ADD8E6;
+            border-bottom: 2px solid #fff;
+            padding: 10px 0;
+        
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px 5px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            margin-right: 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #00a0f0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <span style="margin-right: 200px;">Admin Dashboard</span>
+            <a href="{{ url_for('admin_page') }}">Admin Home</a>
+            <a href="/">Logout</a>
+        </nav>
+
+        <h1>Live Statistics</h1>
+        <img src="data:image/png;base64,{{ plot_img }}" alt="Statistics">
+
+        <section class="section">
+            <h2>Users with Most Ratings</h2>
+            <ul>
+                {% for user in users_with_most_ratings %}
+                <li>{{ user.Full_name }} - Total Ratings: {{ ratings_counts[loop.index0] }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Users with Most Flagged Songs</h2>
+            <ul>
+                {% for user in users_with_most_flagged_songs %}
+                <li>{{ user.Full_name }} - Flagged Songs Count: {{ flagged_songs_counts[loop.index0] }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>Total Flagged Items</h2>
+            <p>Flagged Users: {{ total_flagged_users }}</p>
+            <p>Flagged Songs: {{ total_flagged_songs }}</p>
+            <p>Flagged Playlists: {{ total_flagged_playlists }}</p>
+        </section>
+
+        <section class="section">
+            <h2>Top Performing Songs</h2>
+            <ul>
+                {% for song in top_performing_songs %}
+                <li>{{ song.S_name }} - Average Rating: {{ song.Average_Rating }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </div>
+</body>
+
+</html>

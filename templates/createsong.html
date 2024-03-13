@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+    body {
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Signup basic form style */
+    .signup {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.signup form {
+    text-align: center;
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px; 
+}
+
+.form-group p {
+    margin-right: 20px; 
+    color: black;
+}
+
+.signup label {
+    display: block;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.signup input,
+.signup select,
+.signup button,
+.signup textarea {
+    width: 100%;
+    margin: 5px 0;
+}
+    .flashes {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    
+</style>
+<div class="main">
+    <div class="signup">
+        <form action="/createsong" method="post" enctype="multipart/form-data">
+                <label for="chk" aria-hidden="true">Upload Your Song</label>
+                <input type="text" name="S_Name" placeholder="Song Name" required="" autocomplete="off">
+                <textarea name="Lyrics" placeholder="Lyrics" required autocomplete="off"></textarea>
+                <input type="text" name="Genre" placeholder="Genre" required="" autocomplete="" minlength="3"
+                    maxlength="15">
+            <div class="form-group">
+                <p>MP3 Upload</p>
+                <input type="file" name="song_file" accept=".mp3" required placeholder=" Upload MP3 File"> 
+            </div>
+
+            <div class="form-group">
+                <p>Image Upload</p>
+                <input type="file" name="image_file" accept=".jpg, .jpeg, .png" required placeholder=" Upload Song Image">
+            </div>
+
+            <button class="btn btn-primary">Create</button>
+        </form>
+    </div>
+</div>
+
+
+{% endblock %}

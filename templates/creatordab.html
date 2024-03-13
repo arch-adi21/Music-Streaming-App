@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .section {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #555;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            font-size: 1.5em;
+            color: #ADD8E6;
+            border-bottom: 2px solid #fff;
+            padding: 10px 0;
+        }
+
+        .card {
+            width: 100%;
+            border: 1px solid #555;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px 5px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            margin-right: 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #00a0f0;
+        }
+
+        .contacts {
+            clear: both;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <span style="margin-right: 200px;">Welcome, {{ user_name }}</span>
+        <a href="{{ url_for('loghome') }}">Home</a>
+        <a href="{{ url_for('search') }}">Search</a>
+        <a href="{{ url_for('csong') }}"> Edit Songs </a>
+        <a href="{{ url_for('del_user') }}"> delete user </a>
+        <a href="{{ url_for('playlist_edit')}}"> Edit Playlists </a>
+        <a href="{{ url_for('user_statistics') }}">User Statistics</a>
+        <a href="{{ url_for('profile') }}">Profile</a>
+        <a href="{{ url_for('home') }}">Logout</a>
+    </nav>
+
+    <section style="background-color: rgba(59, 40, 186, 0.2);">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <h1 style="align-content:flex-start; color: white;">All Songs</h1>
+    
+                {% if psongs %}
+                <div class="col-12">
+                    <div class="card text-white" style="background-color: rgba(0, 0, 0, 0.7);">
+                        <div class="card-body">
+                            <div class="row">
+                                {% for psong in psongs %}
+                                <div class="col-md-4 mb-4">
+                                    <div class="card text-white" style="background-color: rgba(0, 0, 0, 0.7);">
+                                        <img src="{{ url_for('static', filename=psong.S_I) }}" class="card-img-top"
+                                            alt="{{ psong.S_name }}" />
+                                        <div class="card-body">
+                                            <div class="text-center">
+                                                <h5 class="card-title" style="color: white;">Song : {{ psong.S_name }}</h5>
+                                                <p class="text-muted mb-4"> Genre : {{ psong.Genre }}</p>
+                                                <p class="text-muted mb-4"> {{ psong.Artist}}</p>
+                                                <p class="text-muted mb-4">Rating: {{ psong.Average_Rating if psong.Average_Rating is defined else 'No Ratings' }}</p>
+                                                <form action="/csong" method="post">
+                                                    <input type="hidden" name="song_id" value="{{ psong.SID }}">
+                                                    <button type="submit" name="action" value="show"
+                                                        class="btn btn-outline-primary">Play</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section style="background-color: rgba(59, 40, 186, 0.2);">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <h1 style="align-content:flex-start; color: white;">Playlist Songs</h1>
+
+                {% for playlist in playlists %}
+                <div class="col-md-8 col-lg-6 col-xl-12 mb-4">
+                    <div class="card text-white" style="background-color: rgba(0, 0, 0, 0.7);">
+                        <div class="card-body">
+                            <h2 class="card-title" style="color: white;">{{ playlist.P_name }}</h2>
+                            {% for song in playlist.songs %}
+                            <div class="col-md-8 col-lg-6 col-xl-4">
+                                <div class="card text-white" style="background-color: rgba(0, 0, 0, 0.7);">
+                                    <img src="{{ url_for('static', filename=song.S_I) }}" class="card-img-top"
+                                        alt="{{ song.S_name }}" />
+                                    <div class="card-body">
+                                        <div class="text-center">
+                                            <h5 class="card-title" style="color: white;">Song : {{ song.S_name }}</h5>
+                                            <p class="text-muted mb-4"> Genre : {{ song.Genre }}</p>
+                                            <p class="text-muted mb-4"> {{ song.Artist}}</p>
+                                            <p class="text-muted mb-4">Rating: {{ song.Average_Rating if song.Average_Rating is defined else 'No Ratings' }}</p>
+                                            <form action="/
+                                            <form action="/csong" method="post">
+                                                <input type="hidden" name="song_id" value="{{ song.SID }}">
+                                                <button type="submit" name="action" value="show"
+                                                    class="btn btn-outline-primary">Play</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    <div class="contacts">
+        <h2>Contacts</h2>
+        <p>Contact Information</p>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Song Management</title>
+    <style>
+        @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: rgb(32, 25, 139);
+        }
+        nav {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px 5px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            margin-right: 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #00a0f0;
+        }
+    </style>
+</head>
+
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div class="container mt-4">
+        {% for message in messages %}
+        {% if 'success' in message %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% elif 'update' in message %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% elif 'delete' in message %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+    <nav>
+        <a href="{{ url_for('loghome') }}">Home</a>
+        <a href="">Search</a>
+        <a href="{{ url_for('home') }}">Logout</a>
+    </nav>
+    <h2>Your Playlists</h2>
+    <button class="btn btn-success" onclick="location.href='/createplaylistuser'">Create Playlist</button>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Playlist Name</th>
+                <th>Song ID</th>
+                <th>Song Name</th>
+                <th>Artist Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for playlist in playlists %}
+                {% for song in playlist.songs %}
+                    <tr>
+                        {% if loop.index0 == 0 %}
+                            <td rowspan="{{ playlist.songs|length }}">{{ playlist.P_name }}</td>
+                        {% endif %}
+                        <td>{{ song.SID }}</td>
+                        <td>{{ song.S_name }}</td>
+                        <td>{{ song.Artist }}</td>
+                        <td>
+                            <form action="/playlistedituser" method="post">
+                                <input type="hidden" name="song_id" value="{{ song.SID }}">
+                                <input type="hidden" name="playlist_id" value="{{ playlist.PID }}">
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                            <a href="/showsong/{{ song.SID }}" class="btn btn-outline-primary">Show</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Playlist Name</th>
+                <th>Flag Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for playlist in playlists %}
+                <tr>
+                    <td>{{ playlist.P_name }}</td>
+                    <td>{{ 'Flagged' if playlist.is_flaggged else 'Not Flagged' }}</td>
+                    <td>
+                        <form action="/playlistedituser" method="post">
+                            <input type="hidden" name="playlist_id" value="{{ playlist.PID }}">
+                            <button type="submit" class="btn btn-outline-danger">Delete Playlist</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

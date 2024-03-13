@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+    body {
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .upgrade-account {
+        background: rgba(255, 255, 255, 0.3);
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .upgrade-account form {
+        text-align: center;
+    }
+
+    .upgrade-account label {
+        display: block;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .upgrade-account button,
+    .upgrade-account a {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .flashes {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+</style>
+<div class="main">
+    <div class="upgrade-account">
+        <form action="{{ url_for('upgrade_account') }}" method="post">
+            <label for="chk" aria-hidden="true">Upgrade Your Account</label>
+            <p>Are you sure you want to upgrade your account to Creator?</p>
+            <button class="btn btn-success" name="action" value="upgrade">Yes, Upgrade</button>
+            <a href="{{ url_for('decline_upgrade') }}" class="btn btn-danger">No, Decline</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Song</title>
+    <!-- Use the same CSS styles as in the previous code -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #fff;
+        }
+
+        .song-details {
+            margin-top: 20px;
+        }
+
+        .song-details p ,
+        .song-details pre {
+            color: #fff;
+        }
+        .audio-container {
+        background-image: url("{{ url_for('static', filename='song1.jpg') }}"); 
+        background-size: cover;
+        background-position: center;
+        width: 300px; 
+        height: 300px; 
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    audio {
+        width: 100%;
+    }
+    .song-info {
+        text-align: center;
+        color: white;
+        margin-top: 20px;
+        margin-left: auto;
+    }
+    </style>
+</head>
+<body>
+    <h2>Song Details</h2>
+
+    <div class="song-details">
+        <p><strong>Song ID:</strong> {{ song.SID }}</p>
+        <p><strong>Song Name:</strong> {{ song.S_name }}</p>
+        <p><strong>Artist Name:</strong> {{ song.A_Name }}</p>
+        <p><strong>Genre:</strong> {{ song.Genre }}</p>
+        <p><strong>Lyrics:</strong></p>
+        <pre>{{ song.Lyrics }}</pre>
+    </div>
+    <div class="audio-container">
+        <audio controls>
+            <source src="{{ url_for('static', filename='song1.mp3') }}" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+    <div class="song-info">
+        <h2>Song Name</h2> <!-- Replace with the actual song name -->
+        <p>Artist: Artist Name</p> <!-- Replace with the actual artist name -->
+        <p>Genre: Genre Name</p> <!-- Replace with the actual genre name -->
+    </div>
+</body>
+</html>

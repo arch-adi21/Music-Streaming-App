@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+    body {
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Signup basic form style */
+    .signup {
+        background: rgba(255, 255, 255, 0.3);
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .signup form {
+        text-align: center;
+    }
+
+    .signup label {
+        display: block;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .signup input,
+    .signup select,
+    .signup button,
+    .signup textarea {
+        width: 100%;
+        margin: 5px 0;
+    }
+
+    .flashes {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+</style>
+<div class="main">
+    <div class="signup">
+        <form action="/createplaylist" method="post" enctype="multipart/form-data">
+            <label for="chk" aria-hidden="true">Name Your Playlist</label>
+            <input type="text" name="P_Name" placeholder="Playlist Name" required="" autocomplete="off">
+            <button class="btn btn-primary">Create</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,260 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+    body {
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .playlist-dropdown {
+        width: 200px;
+        margin-right: 10px;
+    }
+
+    .audio-container {
+        background-image: url("{{ url_for('static', filename=S_I) }}");
+        background-size: cover;
+        background-position: center;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    audio {
+        width: 100%;
+    }
+
+    .song-info {
+        text-align: center;
+        color: white;
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .flash-messages {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    .buttons {
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        margin-top: 20px;
+        margin-left: auto;
+    }
+
+    .like-button {
+        background-color: #ff5733;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        margin-right: 10px;
+    }
+
+    .playlist-dropdown {
+        width: 150px;
+        margin-right: 10px;
+        background-color: #33ff4c;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 8px;
+    }
+
+    .add-to-playlist-button {
+        background-color: white;
+        color: #33ff4c;
+        padding: 10px 20px;
+        border: 2px solid #33ff4c;
+        border-radius: 50px;
+    }
+
+    .lyrics-container {
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #333;
+        padding: 20px;
+        text-align: center;
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        overflow-y: auto;
+        max-height: 240px;
+    }
+
+    nav {
+        background-color: rgba(0, 0, 0, 0.7);
+        padding: 15px 5px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    nav a,
+    span {
+        color: #fff;
+        margin-right: 15px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+        color: #00a0f0;
+    }
+    .rating-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.rating-box {
+    background-color: rgba(56, 19, 174, 0.301); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    margin-top: 15px;
+    margin-bottom: 20px; 
+}
+    .rating-container p {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .rating-form {
+        display: inline-block;
+    }
+
+    .form-check-input {
+        display: none; 
+    }
+
+    .form-check-label {
+        font-size: 24px;
+        color: #ddd;
+        cursor: pointer;
+    }
+
+    .form-check-label:hover,
+    .form-check-input:checked + .form-check-label {
+        color: #ffcc00; 
+    }
+
+    .btn-rate {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .btn-rate:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<nav>
+    <a href="{{ url_for('loghome') }}">Home</a>
+    <a href="{{ url_for('search') }}">Search</a>
+    <a href="{{ url_for('home') }}">Logout</a>
+</nav>
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<div class="flash-messages">
+    {% for message in messages %}
+    {% if 'success' in message %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% elif 'already' in message %}
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% elif 'delete' in message %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
+{% endwith %}
+
+<div class="audio-container">
+    <audio controls>
+        <source src="{{ url_for('static', filename=S_M) }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+
+<div class="song-info">
+    <h2>{{song_name}}</h2>
+    <p>Artist: {{ Artist }}</p> 
+    <p>Genre: {{genre}}</p> 
+</div>
+
+<div class="rating-container">
+    <div class="rating-box">
+        <p style="color: whitesmoke;">Rate this song:</p>
+        <form class="rating-form" action="{{ url_for('rate_song', song_id=song_id) }}" method="post">
+            {% for i in range(1, 6) %}
+                <input class="form-check-input" type="radio" id="rating{{ i }}" name="rating" value="{{ i }}">
+                <label class="form-check-label" for="rating{{ i }}">★</label>
+            {% endfor %}
+            <button type="submit" class="btn-rate">Submit Rating</button>
+        </form>
+    </div>
+</div>
+
+<div class="buttons">
+    <form action="{{ url_for('add_to_playlist', song_id=song_id) }}" method="post">
+        <label for="playlistDropdown"></label>
+        <select name="playlist_id" id="playlistDropdown" class="form-control playlist-dropdown">
+            <option disabled selected value="Nill">Select Playlist</option>
+            {% for playlist_id , playlist_name in user_playlists %}
+            <option value="{{ playlist_id }}">{{ playlist_name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Add to Playlist</button>
+    </form>
+</div>
+
+<div class="lyrics-container">
+    <h3>Lyrics</h3>
+    <p>Your lyrics go here.</p>
+    <p>{{ Lyrics }}</p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

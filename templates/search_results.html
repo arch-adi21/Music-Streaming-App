@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search Results</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    color: white;
+    padding-top: 0px; 
+}
+
+.container {
+    margin-top: 20px;
+}
+
+    .card {
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-body {
+      padding: 20px;
+    }
+    nav {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px 5px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 100%;
+    z-index: 1000;
+}
+
+    nav a,
+    span {
+        color: #fff;
+        margin-right: 15px;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+        color: #00a0f0;
+    }
+    .rating-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+  </style>
+</head>
+
+<body>
+    <nav>
+        <a href="{{ url_for('loghome') }}">Home</a>
+        <a href="">Search</a>
+        <a href="{{ url_for('home') }}">Logout</a>
+    </nav>
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <h2>Search Results for "{{ query }}"</h2>
+
+      {% if search_results %}
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <ul>
+              {% for result in search_results %}
+              <li>
+                <div class="card">
+                  <div class="card-body" style="color: black;">
+                    <strong>{{ result.S_name }}</strong> by {{ result.Artist }} (Genre: {{ result.Genre }})
+                    {% if result.P_name %}
+                    in playlist: {{ result.P_name }}
+                    {% endif %}
+                    <a href="{{ url_for('showsong', song_id=result.SID) }}" class="btn btn-success">Play</a>
+                  </div>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      {% else %}
+      <p>No results found.</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+
+</html>

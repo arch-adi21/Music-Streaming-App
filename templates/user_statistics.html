@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .section {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #555;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .section h2 {
+            font-size: 1.5em;
+            color: #ADD8E6;
+            border-bottom: 2px solid #fff;
+            padding: 10px 0;
+        }
+
+        .card {
+            width: 100%;
+            border: 1px solid #555;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px 5px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            margin-right: 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #00a0f0;
+        }
+
+        .contacts {
+            clear: both;
+            text-align: center;
+            padding: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <span style="margin-right: 200px;">Welcome, {{ user.Full_name }}</span>
+        <a href="{{ url_for('loghome') }}">Home</a>
+        <!-- Add more navigation links as needed -->
+    </nav>
+
+    <div class="container">
+        <div class="section">
+            <h2>{{ user.Full_name }} Statistics:</h2>
+            <p>Total Uploaded Songs: {{ total_uploaded_songs }}</p>
+            <p>Total Created Playlists: {{ total_created_playlists }}</p>
+        </div>
+
+        <div class="section">
+            <h2>Top 5 Songs with Best User Rating:</h2>
+            <img src="data:image/png;base64,{{ plot_img }}" alt="Top 5 Songs Bar Plot">
+        </div>
+
+        <!-- Add more sections and content as needed -->
+    </div>
+
+    <div class="contacts">
+        <h2>Contacts</h2>
+        <p>Contact Information</p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

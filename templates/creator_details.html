@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+            color: #fff;
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .section {
+            flex: 1;
+            padding: 20px;
+            border: 1px solid #555;
+            background-color: rgba(0, 0, 0, 0.7);
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        nav {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px 10px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            padding: 5px;
+            margin-right: 15px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #00a0f0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav>
+        <span style="margin-right: 200px;">Admin Dashboard</span>
+        <a href="{{ url_for('admin_stats') }}">Statistics</a>
+        <a href="{{ url_for('search') }}">Logout</a>
+    </nav>
+
+
+    <div class="container">
+        <div class="section">
+            <h2>Creator User Details</h2>
+            <p>User ID: {{ user.UID }}</p>
+            <p>Name: {{ user.Full_name }}</p>
+            <p>Email: {{ user.email }}</p>
+            <p>Password: {{ user.password }}</p>
+
+            <!-- Add more user details as needed -->
+
+            <h3>Songs</h3>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>Song ID</th>
+                        <th>Song Name</th>
+                        <th>Genre</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for song in songs %}
+                    <tr>
+                        <td>{{ song.SID }}</td>
+                        <td>{{ song.S_name }}</td>
+                        <td>{{ song.Genre }}</td>
+                        <td>
+                            {% if song.is_flagged %}
+                            <form method="POST"
+                                action="{{ url_for('unflag_song', user_id=user.UID , song_id=song.SID) }}">
+                                <button type="submit" class="btn btn-success">Unflag</button>
+                            </form>
+                            {% else %}
+                            <form method="POST"
+                                action="{{ url_for('flag_song' , user_id=user.UID, song_id=song.SID) }}">
+                                <button type="submit" class="btn btn-warning">Flag</button>
+                            </form>
+                            {% endif %}
+                            <form method="POST"
+                                action="{{ url_for('delete_song', user_id=user.UID, song_id=song.SID) }}">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <h3>Playlists</h3>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>Playlist ID</th>
+                        <th>Playlist Name</th>
+                        <th>Song Names</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for playlist in playlists %}
+                    <tr>
+                        <td>{{ playlist.PID }}</td>
+                        <td>{{ playlist.P_name }}</td>
+                        <td>
+                            {% for song in playlist.songs %}
+                            {{ song.S_name }}{% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if playlist.is_flagged %}
+                            <form method="POST"
+                                action="{{ url_for('unflag_playlist', user_id=user.UID, playlist_id=playlist.PID) }}">
+                                <button type="submit" class="btn btn-success">Unflag Playlist</button>
+                            </form>
+                            {% else %}
+                            <form method="POST"
+                                action="{{ url_for('flag_playlist', user_id=user.UID, playlist_id=playlist.PID) }}">
+                                <button type="submit" class="btn btn-warning">Flag Playlist</button>
+                            </form>
+                            {% endif %}
+                            <form method="POST" action="{{ url_for('delete_playlist', user_id=user.UID, playlist_id=playlist.PID) }}">
+                                <button type="submit" class="btn btn-danger">Delete Playlist</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

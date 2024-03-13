@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+    body {
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .signup {
+        background: rgba(255, 255, 255, 0.3);
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .signup form {
+        text-align: center;
+    }
+
+    .signup label {
+        display: block;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .signup input,
+    .signup select,
+    .signup button,
+    .signup textarea {
+        width: 100%;
+        margin: 5px 0;
+    }
+</style>
+<div class="main">
+    <div class="signup">
+        <form action="{{ url_for('update_song', song_id=song.SID) }}" method="post">
+            <label for="chk" aria-hidden="true">Upload Your Song</label>
+            <input type="text" name="S_Name" placeholder="Song Name" value="{{ song.S_name }}" required>
+            <textarea name="Lyrics" placeholder="Lyrics" required>{{ song.Lyrics }}</textarea>
+            <input type="text" name="Genre" placeholder="Genre" value="{{ song.Genre }}" required>
+            <button type="submit" class="btn btn-primary">Update Song</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

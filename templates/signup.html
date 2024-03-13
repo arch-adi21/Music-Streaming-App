@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+<style>
+    @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+
+    body {
+        background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .signup {
+        background: rgba(255, 255, 255, 0.3);
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .signup form {
+        text-align: center;
+    }
+
+    .signup label {
+        display: block;
+        font-size: 30px;
+        font-weight: bold;
+    }
+
+    .signup input,
+    .signup select,
+    .signup button {
+        width: 100%;
+        margin: 5px 0;
+    }
+</style>
+<div class="main">
+    <div class="signup">
+        <form action="/signup" method="post">
+            <label for="chk" aria-hidden="true">Sign up</label>
+            <input type="text" name="Full_name" placeholder="Full Name" required="" autocomplete="off">
+            <input type="email" name="email" placeholder="Email" required="" autocomplete="off">
+            <input type="password" name="password" placeholder="Password" required="" minlength="8" maxlength="25">
+            <select name="Role" required>
+                <option disabled selected value="Role">Role</option>
+                <option value="Creator">Creator</option>
+                <option value="Gen">Not a creator</option>
+            </select>
+            <button class="btn btn-primary">Sign up</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
