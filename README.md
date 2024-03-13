@@ -1,5 +1,8 @@
 # Music-Streaming-App
 
+## Access the website here :- 
+[Click to use the app](https://music-streaming-app-q9jm.onrender.com/loghome)
+
 ## Overview of the application :- 
 TI developed a music streaming web-application using flask application
 framework for a dynamic experience to the users. This application has all the basic
