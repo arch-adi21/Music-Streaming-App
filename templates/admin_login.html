@@ -2,48 +2,8 @@
 <html>
 
 <head>
-    <title>Slide Navbar</title>
-    <style>
-        @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
-
-        body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .login {
-            background: rgba(255, 255, 255, 0.3);
-            padding: 60px;
-            border-radius: 10px;
-        }
-
-        .flash-messages {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .login input,
-        .login select,
-        .login button,
-        .login textarea {
-            width: 100%;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .flash-messages {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-    </style>
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_login.css') }}">
 </head>
 
 <body>

@@ -2,108 +2,63 @@
 <html>
 
 <head>
-    <title>Slide Navbar</title>
-    <style>
-        @import url('https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
-
-        body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .login {
-            background: rgba(255, 255, 255, 0.3);
-            padding: 60px;
-            border-radius: 10px;
-        }
-
-        .flash-messages {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .login input,
-        .login select,
-        .login button,
-        .login textarea {
-            width: 100%;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .flash-messages {
-            position: absolute;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-    </style>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 
 <body>
-    <div class="flash-messages">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <div class="container mt-4">
-            {% for message in messages %}
-            {% if 'success' in message %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            {% elif 'update' in message %}
-            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            {% elif 'No' in message %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            {% elif 'flagged' in message %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ message }}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+    <div class="description-container">
+        <h2 class="description-title">Welcome to our Music Player App!</h2>
+        <p class="description">Discover and listen to your favorite tunes. Dive into a world of music from
+            independent artists around the globe. Sign up now to start your musical journey!</p>
+    </div>
+
+    <div class="login-container">
+        <div class="flash-messages">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <div class="flash-message-container">
+                {% for message in messages %}
+                <div class="flash-message">
+                    <span>{{ message }}</span>
+                    <button type="button" class="flash-message-close">&times;</button>
+                </div>
+                {% endfor %}
             </div>
             {% endif %}
-            {% endfor %}
+            {% endwith %}
         </div>
-        {% endif %}
-        {% endwith %}
+
+        <div class="login-header">
+            <h2>Login to Your Account</h2>
+        </div>
+        <div class="login">
+            <form action="/login" method="post" class="login-form">
+                <input type="email" name="email" placeholder="Email" required autocomplete="off">
+                <input type="password" name="pswd" placeholder="Password" required>
+                <button type="submit" class="btn-login">Login</button>
+            </form>
+        </div>
+        <div class="register-link">
+            <a href="{{ url_for('signup') }}">Don't have an account? Register/Signup here</a>
+        </div>
     </div>
 
-
-    <div class="login">
-        <form action="/login" method="post">
-            <div>
-                <input type="email" name="email" placeholder="Email" required autocomplete="off"
-                    style="border-radius: 5px;">
-                <br>
-                <input type="password" name="pswd" placeholder="Password" required style="border-radius: 5px;">
-            </div>
-            <br>
-            <button type="submit" class="btn btn-primary btn-block">Login</button>
-        </form>
-    </div>
-    <a href="{{ url_for('signup') }}">Register/Signup here</a>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.1/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Close flash message on click
+        document.addEventListener('DOMContentLoaded', function () {
+            const closeButtons = document.querySelectorAll('.flash-message-close');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    button.parentElement.style.display = 'none';
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
