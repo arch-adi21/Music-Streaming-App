@@ -4,7 +4,7 @@
 [Click to use the app](https://music-streaming-app-q9jm.onrender.com/)
 
 ## Overview of the application :- 
-TI developed a music streaming web-application using flask application
+I developed a music streaming web-application using flask application
 framework for a dynamic experience to the users. This application has all the basic
 functionalities required to make this a scalable project. I have provided classifications
 among users like Creator , Non-Creator , Admin , and provided features like , MP3 song
